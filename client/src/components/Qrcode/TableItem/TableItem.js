@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 const TableItem = ({ link, deleteCallback }) => {
   const [loading, setLoading] = useState(false);
-  const [qrLoading, setQrLoading] = useState(false);
   const navigation = useNavigate();
 
   const deleteLink = async () => {
@@ -17,23 +16,6 @@ const TableItem = ({ link, deleteCallback }) => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
-    }
-  };
-
-  const handleQRCode = async () => {
-    try {
-      setQrLoading(true);
-      let response = await https.post("/qrcodes", {
-        title: link.title.toLowerCase(),
-        reduced: link.reduced,
-        link_id: link.id,
-      });
-      if (response) {
-        setQrLoading(false);
-      }
-    } catch (error) {
-      setQrLoading(false);
       console.log(error);
     }
   };
@@ -69,20 +51,8 @@ const TableItem = ({ link, deleteCallback }) => {
           style={{ marginLeft: 4, cursor: "pointer" }}
           onClick={() => navigation(`/add-link/${link.id}`)}
         >
-          Modifier
+            Modifier
         </label>
-        {!(link.qrcodes.length != 0) &&
-          (!qrLoading ? (
-            <label
-              class="badge badge-primary"
-              style={{ marginLeft: 4, cursor: "pointer" }}
-              onClick={handleQRCode}
-            >
-              Générer QRcode
-            </label>
-          ) : (
-            <label class="badge badge-warning">Chargement...</label>
-          ))}
       </td>
     </tr>
   );

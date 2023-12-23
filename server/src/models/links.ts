@@ -33,6 +33,29 @@ const model = {
             },
             orderBy: {
                 id: "desc"
+            },
+            include: {
+                qrcodes: true
+            }
+        })
+
+        return result
+    },
+    getWithQr: async (uid : number) => {
+        let result = await prisma.links.findMany({
+            where: { 
+                user: {
+                    id: uid
+                },
+                qrcodes: {
+                    
+                }
+            },
+            orderBy: {
+                id: "desc"
+            },
+            include: {
+                qrcodes: true
             }
         })
 

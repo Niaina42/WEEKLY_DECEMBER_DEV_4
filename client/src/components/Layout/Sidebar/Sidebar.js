@@ -13,7 +13,7 @@ const Sidebar = ({ children }) => {
             </Link>
           </li>
            <li className="nav-item">
-            <Link className="nav-link" to={`/home`}>
+            <Link className="nav-link" to={`/qr-codes`}>
               <span className="menu-title">QR Codes</span>
               <i className="mdi mdi-table-large menu-icon"></i>
             </Link>

@@ -3,13 +3,16 @@ import express from "express"
 import cors from "cors"
 import userRoute from './routes/users'
 import linkRoute from './routes/links'
+import qrcodeRoute from './routes/qrcodes'
 import model from './models/links'
+import path from "path"
 
 const app = express()
 
 app.use(cors())
 app.use(express.urlencoded({extended : true}))
 app.use(express.json())
+app.use('/images', express.static(path.join(__dirname, "../public")));
 
 app.get('/',(req:Request, res:Response) => {
   res.send('Hello from Link Reducer API')
@@ -32,5 +35,6 @@ app.get('/:reduced', async (req:Request, res:Response) => {
 
 app.use('/users', userRoute)
 app.use('/links', linkRoute)
+app.use('/qrcodes', qrcodeRoute)
 
 app.listen(9091, () => console.log("Api listen on port 9091"))

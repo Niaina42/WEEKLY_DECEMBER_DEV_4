@@ -6,6 +6,7 @@ import Register from "../components/Register/Register";
 import ProtectedRoute from "../services/pageGuard/ProtectedRoute";
 import RedirectRoute from "../services/pageGuard/RedirectRoute";
 import AddLink from "../components/AddLink/AddLink";
+import Qrcode from "../components/Qrcode/Qrcode";
 
 const Router = () => {
   return (
@@ -32,6 +33,14 @@ const Router = () => {
           element={
             <ProtectedRoute>
               <AddLink />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/qr-codes"
+          element={
+            <ProtectedRoute>
+              <Qrcode />
             </ProtectedRoute>
           }
         />

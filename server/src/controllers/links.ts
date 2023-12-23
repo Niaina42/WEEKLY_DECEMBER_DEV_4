@@ -66,6 +66,22 @@ const controller = {
             res.status(500).send(error.message)
         }
     },
+    getWithQr: async (req: Request, res: Response) => {
+        let { uid } = req.params
+
+        try { 
+            let data = await model.getWithQr(parseInt(uid))
+
+            if(data)
+                res.status(200).send(data)
+            else
+                res.status(200).send({})
+        }
+        catch (error: any) {
+            console.log(error)
+            res.status(500).send(error.message)
+        }
+    },
     search:  async (req: Request, res: Response) => {
         let { query, id } = req.body
 
