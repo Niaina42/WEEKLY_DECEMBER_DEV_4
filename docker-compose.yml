@@ -1,0 +1,18 @@
+version: "3.1"
+services:
+  postgres:
+    image: postgres:14.1
+    environment:
+      POSTGRES_USER: linkreducer
+      POSTGRES_PASSWORD: linkreducer42
+      POSTGRES_DB: linkreducer-db
+    ports:
+      - "6432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4:6
+    environment:
+      PGADMIN_DEFAULT_EMAIL: linkreducer@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 2k23_admin
+    ports:
+      - "198:80"
