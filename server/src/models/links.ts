@@ -3,7 +3,11 @@ const prisma = new PrismaClient()
 
 const model = {
     getAll: async () => {
-        let result = await prisma.links.findMany()
+        let result = await prisma.links.findMany({
+            orderBy: {
+                id: "desc"
+            }
+        })
         return result
     },
     getOne: async (id : number) => {
@@ -26,6 +30,9 @@ const model = {
                 user: {
                     id: uid
                 }
+            },
+            orderBy: {
+                id: "desc"
             }
         })
 

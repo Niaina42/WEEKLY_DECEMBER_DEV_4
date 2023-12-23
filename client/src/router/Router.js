@@ -28,6 +28,14 @@ const Router = () => {
           }
         />
         <Route
+          path="/add-link/:id"
+          element={
+            <ProtectedRoute>
+              <AddLink />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/"
           element={
             <RedirectRoute>
