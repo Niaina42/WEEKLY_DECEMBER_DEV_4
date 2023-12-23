@@ -1,35 +1,7 @@
-import React, { useEffect, useState } from "react";
-import MenuItem from "./MenuItem/MenuItem";
-import https from "../../../services/http/https";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../../services/context/auth-context";
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Sidebar = ({ children }) => {
-  const [folders, setFolders] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  const fetchFolder = async () => {
-    try {
-      setLoading(true);
-      let formData = new FormData();
-      formData.append("uid", user.user.id);
-      let response = await https.post("/folders/user", formData);
-      if (response) {
-        setFolders(response.data);
-        // navigate(`/home/${response.data[0].id}`)
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchFolder();
-  }, []);
-
   return (
     <div className="container-fluid page-body-wrapper">
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
@@ -46,12 +18,12 @@ const Sidebar = ({ children }) => {
               <i className="mdi mdi-table-large menu-icon"></i>
             </Link>
           </li>
-           <li className="nav-item">
+           {/* <li className="nav-item">
             <Link className="nav-link" to={`/home`}>
               <span className="menu-title">Mon profile</span>
               <i className="mdi mdi-table-large menu-icon"></i>
             </Link>
-          </li>
+          </li> */}
 
           {/* <li className="nav-item sidebar-actions">
             <span className="nav-link">

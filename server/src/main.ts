@@ -3,6 +3,7 @@ import express from "express"
 import cors from "cors"
 import userRoute from './routes/users'
 import linkRoute from './routes/links'
+import model from './models/links'
 
 const app = express()
 
@@ -12,6 +13,21 @@ app.use(express.json())
 
 app.get('/',(req:Request, res:Response) => {
   res.send('Hello from Link Reducer API')
+})
+
+app.get('/:reduced', async (req:Request, res:Response) => {
+  let { reduced } = req.params
+  try {
+    let targetLink = await model.getByReduced(reduced)
+    if(targetLink) {
+      res.redirect(targetLink.original);
+    }
+    else {
+      res.status(404).send('Not found');
+    }
+  } catch (error) {
+    res.status(400).send('Une érreur est survenu');
+  }
 })
 
 app.use('/users', userRoute)

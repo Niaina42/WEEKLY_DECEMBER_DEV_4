@@ -3,16 +3,13 @@ import { generateDate } from "../../../services/date/date";
 import { toFormData } from "axios";
 import https, { BaseUrl } from "../../../services/http/https";
 
-const TableItem = ({ file, deleteCallback }) => {
+const TableItem = ({ link, deleteCallback }) => {
   const [loading, setLoading] = useState(false);
-  const fileUrl = BaseUrl + file.path;
-  const name = file.path.replace("/public/", "");
 
-  const deleteFile = async () => {
+  const deleteLink = async () => {
     try {
       setLoading(true);
-      let formData = toFormData({ id: file.id, path: file.path });
-      let response = await https.post("/files/delete", formData);
+      let response = await https.delete(`/links/${link.id}`);
       if (response) {
         setLoading(false);
         if (deleteCallback) deleteCallback();
@@ -25,14 +22,24 @@ const TableItem = ({ file, deleteCallback }) => {
 
   return (
     <tr>
-      <td> {file.name} </td>
-      <td> {generateDate(file.createdAt)} </td>
+      <td> {link.title} </td>
+      <td>
+        <a href={link.original} target="_blank">
+          {link.original}
+        </a>
+      </td>
+      <td>
+        <a href={BaseUrl + "/" + link.reduced} target="_blank">
+          {" "}
+          {BaseUrl}/{link.reduced}
+        </a>
+      </td>
       <td>
         {!loading ? (
           <label
             class="badge badge-danger"
             style={{ cursor: "pointer" }}
-            onClick={deleteFile}
+            onClick={deleteLink}
           >
             Supprimer
           </label>
@@ -43,7 +50,7 @@ const TableItem = ({ file, deleteCallback }) => {
           class="badge badge-success"
           style={{ marginLeft: 4, cursor: "pointer" }}
         >
-          Telecharger
+          Modifier
         </label>
       </td>
     </tr>

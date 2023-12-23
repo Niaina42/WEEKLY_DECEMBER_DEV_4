@@ -21,10 +21,10 @@ model Links {
   id            Int         @id @default(autoincrement())
   title         String      @db.VarChar(255)
   createdAt     DateTime    @default(now())
-  original      String      @db.VarChar(255)
-  reduced       String      @db.VarChar(255)
+  original      String      @db.VarChar(255)  
+  reduced       String      @db.VarChar(255)  @unique
   user          Users       @relation(fields: [userId], references: [id])
-  userId Int
+  userId        Int
   qrcodes       Qrcodes[]
 }
 

@@ -14,8 +14,19 @@ const model = {
         return result 
     },
     getByReduced: async (reduced : string) => {
-        let result = await prisma.links.findMany({
+        let result = await prisma.links.findUnique({
             where: { reduced: String(reduced) },
+        })
+
+        return result
+    },
+    getByUser: async (uid : number) => {
+        let result = await prisma.links.findMany({
+            where: { 
+                user: {
+                    id: uid
+                }
+            }
         })
 
         return result

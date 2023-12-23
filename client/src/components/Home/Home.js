@@ -7,31 +7,18 @@ import TableItem from "./TableItem/TableItem";
 import { useAuth } from "../../services/context/auth-context";
 
 const Home = () => {
-  const [folder, setFolder] = useState(null);
+  const [links, setLinks] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { folder_id } = useParams();
   const { user } = useAuth();
   const navigation = useNavigate();
 
-  const fetchFile = async () => {
-    try {
-      let formData = toFormData({ uid: user.user.id });
-      let response = await https.post("/folders/user", formData);
-      if (response) {
-        navigation(`/home/${response.data[0].id}`)
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchFolder = async () => {
+  const fetchLinks = async () => {
     try {
       setLoading(true);
-      let formData = toFormData({ folder_id });
-      let response = await https.post("/folders/one", formData);
+      let response = await https.get(`/links/user/${user.user.id}`);
       if (response) {
-        setFolder(response.data);
+        console.log(response.data)
+        setLinks(response.data);
         setLoading(false);
       }
     } catch (error) {
@@ -40,19 +27,15 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if(folder_id) {
-      fetchFolder()
-    } else {
-      fetchFile()
-    }
-  }, [folder_id]);
+    fetchLinks()
+  }, []);
 
   return (
     <Layout>
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="page-header">
-            <h3 class="page-title">{folder && folder.name}</h3>
+            <h3 class="page-title"></h3>
             <h3 class="page-title">
               <Link to={`/add-link`} className="btn btn-block btn-lg btn-gradient-primary">
                 + Créer un lien
@@ -68,8 +51,9 @@ const Home = () => {
                     <table className="table">
                       <thead>
                         <tr>
-                          <th> Nom </th>
-                          <th> Date creation </th>
+                          <th> Titre </th>
+                          <th> Originale </th>
+                          <th> Lien </th>
                           <th> Action </th>
                         </tr>
                       </thead>
@@ -81,8 +65,8 @@ const Home = () => {
                             </td>
                           </tr>
                         )}
-                        {!loading && folder && folder.files.length != 0 ? (
-                          folder.files.map((file, idx) => <TableItem key={idx} file={file} deleteCallback={fetchFolder}/>)
+                        {!loading && links && links.length != 0 ? (
+                          links.map((link, idx) => <TableItem key={idx} link={link} deleteCallback={fetchLinks}/>)
                         ) : !loading && (
                           <tr>
                             <td colSpan={4} className="text-center">

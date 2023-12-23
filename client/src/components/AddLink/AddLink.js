@@ -22,7 +22,7 @@ const AddLink = () => {
       try {
         let response = await https.get(`/links/reduced/${name}`);
         if (response) {
-          setNameAllow(!Boolean(response.data.length));
+          setNameAllow(!Boolean(response.data.id));
         }
       } catch (error) {
         console.log(error);
