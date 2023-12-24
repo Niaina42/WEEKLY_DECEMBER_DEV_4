@@ -21,7 +21,7 @@
     npm install 
     npm run migrate
     npm run generate
-    npm start
+    npm run dev
 ``` 
 - Go to the client dierctories and run ``` npm install ``` then run ``` npm start ```
 
@@ -35,7 +35,15 @@
     npm run migrate
     npm run generate
 ```
-- Go inside src folder then run in pm2 ``` pm2 start app.js ```
+- Go inside server folder then run build
+``` 
+    npm run build
+```
+- Go to the dist/src/main.js and change ``` app.use('/images', express_1.default.static(path_1.default.join(__dirname, "../public"))); ``` to ``` app.use('/images', express_1.default.static(path_1.default.join(__dirname, "../../public"))); ```
+- Then run pm2 after that
+```
+    pm2 start ./dist/src/main.js 
+```
 - Go to the client dierctories and run ``` pm2 start app.config.json ```
 
 ## More functionalities added
