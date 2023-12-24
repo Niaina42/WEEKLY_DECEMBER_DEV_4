@@ -15,6 +15,7 @@ const AddLink = () => {
   const [loading, setLoading] = useState(false);
   const [nameAllow, setNameAllow] = useState(true);
   const [slugAllow, setSlugAllow] = useState(true);
+  const [qrLoading, setQrLoading] = useState(false);
   const [link, setLink] = useState({});
   const { user } = useAuth();
   const navigation = useNavigate();
@@ -100,6 +101,26 @@ const AddLink = () => {
         }
       } catch (error) {
         setLoading(false);
+        console.log(error);
+      }
+    }
+  };
+
+  const handleQRCode = async () => {
+    if (link) {
+      try {
+        setQrLoading(true);
+        let response = await https.post("/qrcodes", {
+          title: link.title.toLowerCase(),
+          reduced: link.reduced,
+          link_id: link.id,
+        });
+        if (response) {
+          setQrLoading(false);
+          navigation("/qr-codes");
+        }
+      } catch (error) {
+        setQrLoading(false);
         console.log(error);
       }
     }
@@ -201,9 +222,7 @@ const AddLink = () => {
                         </div>
                       </div>
                     </div>
-                    {id && (
-                      <ShareButtons url={shareUrl} />
-                    )}
+                    {id && <ShareButtons url={shareUrl} />}
                     {loading ? (
                       <button
                         type="submit"
@@ -220,6 +239,32 @@ const AddLink = () => {
                       >
                         {id ? "Modifier" : "Créer"}
                       </button>
+                    )}
+                    {link &&
+                    link.qrcodes &&
+                    link.qrcodes.length == 0 &&
+                    id &&
+                    qrLoading ? (
+                      <button
+                        type="submit"
+                        disabled
+                        class="btn btn-primary me-2"
+                      >
+                        Chargement...
+                      </button>
+                    ) : (
+                      link &&
+                      link.qrcodes &&
+                      link.qrcodes.length == 0 &&
+                      id && (
+                        <button
+                          type="submit"
+                          onClick={handleQRCode}
+                          class="btn btn-primary me-2"
+                        >
+                          Générer un QRcode
+                        </button>
+                      )
                     )}
                   </form>
                 </div>

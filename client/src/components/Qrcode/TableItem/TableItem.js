@@ -3,7 +3,6 @@ import https, { BaseUrl } from "../../../services/http/https";
 import CustomModal from "../QrModal/QrModal";
 
 const TableItem = ({ link }) => {
-  const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
 
   return (

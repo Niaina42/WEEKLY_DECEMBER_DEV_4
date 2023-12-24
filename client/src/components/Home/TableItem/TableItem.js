@@ -54,20 +54,9 @@ const TableItem = ({ link, deleteCallback }) => {
         </a>
       </td>
       <td>
-        {!loading ? (
-          <label
-            class="badge badge-danger"
-            style={{ cursor: "pointer" }}
-            onClick={deleteLink}
-          >
-            Supprimer
-          </label>
-        ) : (
-          <label class="badge badge-warning">Chargement...</label>
-        )}
         <label
           class="badge badge-success"
-          style={{ marginLeft: 4, cursor: "pointer" }}
+          style={{ cursor: "pointer" }}
           onClick={() => navigation(`/add-link/${link.id}`)}
         >
           Voir
@@ -84,6 +73,17 @@ const TableItem = ({ link, deleteCallback }) => {
           ) : (
             <label class="badge badge-warning">Chargement...</label>
           ))}
+          {!loading ? (
+            <label
+              class="badge badge-danger"
+              style={{ marginLeft: 4, cursor: "pointer" }}
+              onClick={deleteLink}
+            >
+              Supprimer
+            </label>
+          ) : (
+            <label class="badge badge-warning">Chargement...</label>
+          )}
       </td>
     </tr>
   );
