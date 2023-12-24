@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import https, { BaseUrl } from "../../services/http/https";
 import { generateUniqueID, validateSlug } from "../../services/utiles/utiles";
 import { useAuth } from "../../services/context/auth-context";
+import ShareButtons from "../Common/ShareButtons/ShareButtons";
 
 const AddLink = () => {
   const [data, setData] = useState({
@@ -18,6 +19,8 @@ const AddLink = () => {
   const { user } = useAuth();
   const navigation = useNavigate();
   const { id } = useParams();
+  const shareUrl =
+    BaseUrl.replace("localhost", "173.249.22.169") + "/" + link.reduced;
 
   const checkLinkName = async (name) => {
     if (name.trim() != "") {
@@ -41,7 +44,6 @@ const AddLink = () => {
       let response = await https.get(`/links/${id}`);
       if (response) {
         setData(response.data);
-        console.log(response.data);
         setLink(response.data);
       }
     } catch (error) {
@@ -115,19 +117,25 @@ const AddLink = () => {
                     {id ? "Modifier le lien" : "Ajouter un lien"}
                   </h4>
                   <form class="forms-sample" onSubmit={handleSubmit}>
-                    <div class="col-md-12">
-                      <div>QR code</div>
-                      {link && link.qrcodes && link.qrcodes.length != 0 && (
-                        <a
-                          href={BaseUrl + "/images/" + link.qrcodes[0].qrcode}
-                          target="_blank"
-                        >
-                          <img
-                            src={BaseUrl + "/images/" + link.qrcodes[0].qrcode}
-                          />
-                        </a>
-                      )}
-                    </div>
+                    {id && (
+                      <div class="col-md-12">
+                        {link && link.qrcodes && link.qrcodes.length != 0 && (
+                          <div>QR code</div>
+                        )}
+                        {link && link.qrcodes && link.qrcodes.length != 0 && (
+                          <a
+                            href={BaseUrl + "/images/" + link.qrcodes[0].qrcode}
+                            target="_blank"
+                          >
+                            <img
+                              src={
+                                BaseUrl + "/images/" + link.qrcodes[0].qrcode
+                              }
+                            />
+                          </a>
+                        )}
+                      </div>
+                    )}
                     <div class="form-group">
                       <label for="exampleInputUsername1">Titre</label>
                       <input
@@ -193,6 +201,9 @@ const AddLink = () => {
                         </div>
                       </div>
                     </div>
+                    {id && (
+                      <ShareButtons url={shareUrl} />
+                    )}
                     {loading ? (
                       <button
                         type="submit"

@@ -3,11 +3,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { BaseUrl } from "../../../services/http/https";
 import useDownloader from "react-use-downloader";
+import ShareButtons from "../../Common/ShareButtons/ShareButtons";
 
 function QrModal({ show, setShow, link }) {
   const { size, elapsed, percentage, download, cancel, error, isInProgress } =
     useDownloader();
   const qrCode = link && link.qrcodes && link.qrcodes[0];
+  const shareUrl =
+    BaseUrl.replace("localhost", "173.249.22.169") + "/" + link.reduced;
 
   const handleClose = () => setShow(false);
 
@@ -30,6 +33,7 @@ function QrModal({ show, setShow, link }) {
               <div className="mt-3 text-center">
                 <img src={BaseUrl + "/images/" + qrCode.qrcode} />
               </div>
+              <ShareButtons url={shareUrl} position={"text-start"}/>
             </div>
           </div>
         </Modal.Body>

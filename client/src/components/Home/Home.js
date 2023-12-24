@@ -17,7 +17,6 @@ const Home = () => {
       setLoading(true);
       let response = await https.get(`/links/user/${user.user.id}`);
       if (response) {
-        console.log(response.data)
         setLinks(response.data);
         setLoading(false);
       }
