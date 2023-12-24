@@ -47,3 +47,7 @@
 - Go to the client dierctories and run ``` pm2 start app.config.json ```
 
 ## More functionalities added
+- Ajour d'un menu QR code pour voir les liens qui ont des code Qr
+- Télechargement d'une image d'un QRcode
+- Recherche dans les liens créer
+- Boutton partage sur plusieurs réseaux sociaux
