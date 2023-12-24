@@ -64,22 +64,16 @@ const model = {
 
         return result
     },
-    search: async (query : string, id:number) => {
+    search: async (query : string) => {
 
         let result = await prisma.links.findMany({
             where: {
-                NOT: {
-                    id: id,
-                },
                 OR: [
                     {
                         title: { contains: query }
                     },
                     {
                         reduced: { contains: query }
-                    },
-                    {
-                        original: { contains: query }
                     }
                 ]
             }

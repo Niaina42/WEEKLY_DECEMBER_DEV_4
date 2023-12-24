@@ -14455,12 +14455,29 @@ dl {
   -webkit-box-flex: 1;
   -ms-flex-positive: 1;
   flex-grow: 1; }
-
-.loader-animate3 {
-  background-image: url(https://user-images.githubusercontent.com/35243461/168796900-207c2e2a-4a21-4ef0-9dc7-fd82e3e20073.svg);
+  
+.search-input-result {
+  background: white;
+  margin-top: 10px;
+  padding: 5px;
+  -webkit-box-shadow: 5px 5px 34px -1px rgba(0,0,0,0.3); 
+  box-shadow: 5px 5px 34px -1px rgba(0,0,0,0.3);
+  position: absolute;
+  width: 20vw;
+  border-radius: 5px;
 }
-
-.svg36 {
-  height: 36px;
-  width: 36px;
+.search-input-result .search-item {
+  border: 1px solid #eeeeee;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+.search-input-result .search-item h5 {
+  color: #444444;
+  font-size: 14px;
+}
+.search-input-result .search-item p {
+  margin-bottom: 0;
+  font-size: 13px;
 }

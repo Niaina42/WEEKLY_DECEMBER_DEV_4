@@ -83,10 +83,10 @@ const controller = {
         }
     },
     search:  async (req: Request, res: Response) => {
-        let { query, id } = req.body
+        let { query } = req.body
 
         try { 
-            let data = await model.search(String(query), parseInt(id))
+            let data = await model.search(String(query))
 
             if(data)
                 res.status(200).send(data)

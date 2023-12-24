@@ -38,14 +38,14 @@ const Qrcode = () => {
             <div className="col-md-12 grid-margin stretch-card">
               <div className="card">
                 <div className="card-body">
-                  <h4 className="card-title">Vos QR codes</h4>
+                  <h4 className="card-title">Mes codes QR</h4>
                   <div className="table-responsive">
                     <table className="table">
                       <thead>
                         <tr>
                           <th> Titre </th>
                           <th> Originale </th>
-                          <th> Lien </th>
+                          <th> Réduit </th>
                           <th> Action </th>
                         </tr>
                       </thead>

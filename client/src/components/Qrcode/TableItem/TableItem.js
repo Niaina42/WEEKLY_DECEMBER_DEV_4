@@ -25,7 +25,7 @@ const TableItem = ({ link }) => {
           style={{ marginLeft: 4, cursor: "pointer" }}
           onClick={() => setShow(true)}
         >
-            Afficher QR
+            Afficher le QR
         </label>
       </td>
       <CustomModal show={show} setShow={setShow} link={link} />
