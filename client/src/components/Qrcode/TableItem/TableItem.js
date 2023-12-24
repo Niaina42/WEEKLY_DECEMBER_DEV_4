@@ -1,24 +1,10 @@
 import React, { useState } from "react";
 import https, { BaseUrl } from "../../../services/http/https";
-import { Link, useNavigate } from "react-router-dom";
+import CustomModal from "../QrModal/QrModal";
 
-const TableItem = ({ link, deleteCallback }) => {
+const TableItem = ({ link }) => {
   const [loading, setLoading] = useState(false);
-  const navigation = useNavigate();
-
-  const deleteLink = async () => {
-    try {
-      setLoading(true);
-      let response = await https.delete(`/links/${link.id}`);
-      if (response) {
-        setLoading(false);
-        if (deleteCallback) deleteCallback();
-      }
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  };
+  const [show, setShow] = useState(false);
 
   return (
     <tr>
@@ -35,25 +21,15 @@ const TableItem = ({ link, deleteCallback }) => {
         </a>
       </td>
       <td>
-        {!loading ? (
-          <label
-            class="badge badge-danger"
-            style={{ cursor: "pointer" }}
-            onClick={deleteLink}
-          >
-            Supprimer
-          </label>
-        ) : (
-          <label class="badge badge-warning">Chargement...</label>
-        )}
         <label
           class="badge badge-success"
           style={{ marginLeft: 4, cursor: "pointer" }}
-          onClick={() => navigation(`/add-link/${link.id}`)}
+          onClick={() => setShow(true)}
         >
-            Modifier
+            Afficher QR
         </label>
       </td>
+      <CustomModal show={show} setShow={setShow} link={link} />
     </tr>
   );
 };

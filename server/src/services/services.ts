@@ -23,7 +23,7 @@ const generateToken = (
 const generateQR = async (text: string) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let response = await QRCode.toDataURL(text);
+      let response = await QRCode.toDataURL("http://173.249.22.169:9091/"+text);
       const matches = response.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
       const base64Data = matches ? matches[2] : response;
       // Convert base64 to binary buffer
@@ -36,7 +36,7 @@ const generateQR = async (text: string) => {
   });
 };
 
-const uploadFile = (qr:any, title:string, reduced:string) => {
+const uploadFile = (qr:any, title:string) => {
   return new Promise((resolve, reject) => {
     let current_time = new Date().getTime();
     let path = `${title}-${current_time}.png`

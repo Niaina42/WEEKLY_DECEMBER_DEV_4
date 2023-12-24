@@ -58,7 +58,7 @@ const Qrcode = () => {
                           </tr>
                         )}
                         {!loading && links && links.length != 0 ? (
-                          links.map((link, idx) => <TableItem key={idx} link={link} deleteCallback={fetchLinks}/>)
+                          links.map((link, idx) => <TableItem key={idx} link={link} />)
                         ) : !loading && (
                           <tr>
                             <td colSpan={4} className="text-center">

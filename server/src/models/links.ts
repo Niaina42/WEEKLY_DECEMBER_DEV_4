@@ -13,6 +13,9 @@ const model = {
     getOne: async (id : number) => {
         let result = await prisma.links.findUnique({
             where: { id: Number(id) },
+            include: {
+                qrcodes: true
+            }
         })
         
         return result 
@@ -48,7 +51,7 @@ const model = {
                     id: uid
                 },
                 qrcodes: {
-                    
+                    some: {}
                 }
             },
             orderBy: {

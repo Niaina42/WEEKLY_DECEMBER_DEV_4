@@ -24,10 +24,9 @@ const AddLink = () => {
       try {
         let response = await https.get(`/links/reduced/${name}`);
         if (response) {
-          if(id && (link.reduced != response.data.reduced))
+          if (id && link.reduced != response.data.reduced)
             setNameAllow(!Boolean(response.data.id));
-          if(!id) 
-            setNameAllow(!Boolean(response.data.id));
+          if (!id) setNameAllow(!Boolean(response.data.id));
         }
       } catch (error) {
         console.log(error);
@@ -42,6 +41,7 @@ const AddLink = () => {
       let response = await https.get(`/links/${id}`);
       if (response) {
         setData(response.data);
+        console.log(response.data);
         setLink(response.data);
       }
     } catch (error) {
@@ -50,8 +50,8 @@ const AddLink = () => {
   };
 
   useEffect(() => {
-    if(id) fetchLink()
-  }, [id])
+    if (id) fetchLink();
+  }, [id]);
 
   const handelChange = (e) => {
     setData({
@@ -75,31 +75,29 @@ const AddLink = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true)
-    if(data.reduced.trim() == "") 
-      data.reduced = generateUniqueID()
+    setLoading(true);
+    if (data.reduced.trim() == "") data.reduced = generateUniqueID();
 
-    if(nameAllow && slugAllow) {
+    if (nameAllow && slugAllow) {
       try {
-        let response
-        if(!id) {
+        let response;
+        if (!id) {
           response = await https.post(`/links`, {
             ...data,
-            uid: user.user.id
+            uid: user.user.id,
           });
-        }
-        else {
+        } else {
           response = await https.put(`/links`, {
             ...data,
-            id
+            id,
           });
         }
-        if (response) {    
-          setLoading(false)
-          navigation("/home")
+        if (response) {
+          setLoading(false);
+          navigation("/home");
         }
       } catch (error) {
-        setLoading(false)
+        setLoading(false);
         console.log(error);
       }
     }
@@ -113,8 +111,23 @@ const AddLink = () => {
             <div class="col-md-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title mb-5">{id ? "Modifier le lien" : "Ajouter un lien"}</h4>
+                  <h4 class="card-title mb-4">
+                    {id ? "Modifier le lien" : "Ajouter un lien"}
+                  </h4>
                   <form class="forms-sample" onSubmit={handleSubmit}>
+                    <div class="col-md-12">
+                      <div>QR code</div>
+                      {link && link.qrcodes && link.qrcodes.length != 0 && (
+                        <a
+                          href={BaseUrl + "/images/" + link.qrcodes[0].qrcode}
+                          target="_blank"
+                        >
+                          <img
+                            src={BaseUrl + "/images/" + link.qrcodes[0].qrcode}
+                          />
+                        </a>
+                      )}
+                    </div>
                     <div class="form-group">
                       <label for="exampleInputUsername1">Titre</label>
                       <input
@@ -155,7 +168,7 @@ const AddLink = () => {
                         </div>
                         <div class="form-group" style={{ width: "100%" }}>
                           <label for="exampleInputEmail1">
-                            Lien Customisable{" "}(optionnel)
+                            Lien Customisable (optionnel)
                           </label>
                           <input
                             type="text"
@@ -194,7 +207,7 @@ const AddLink = () => {
                         disabled={!nameAllow}
                         class="btn btn-gradient-primary me-2"
                       >
-                        Créer
+                        {id ? "Modifier" : "Créer"}
                       </button>
                     )}
                   </form>

@@ -31,6 +31,7 @@ const TableItem = ({ link, deleteCallback }) => {
       });
       if (response) {
         setQrLoading(false);
+        navigation("/qr-codes")
       }
     } catch (error) {
       setQrLoading(false);
@@ -69,7 +70,7 @@ const TableItem = ({ link, deleteCallback }) => {
           style={{ marginLeft: 4, cursor: "pointer" }}
           onClick={() => navigation(`/add-link/${link.id}`)}
         >
-          Modifier
+          Voir
         </label>
         {!(link.qrcodes.length != 0) &&
           (!qrLoading ? (

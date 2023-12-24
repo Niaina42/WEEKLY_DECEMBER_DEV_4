@@ -38,7 +38,7 @@ const controller = {
         let { title, reduced, link_id } = req.body
         try { 
             let qr : any = await generateQR(reduced)
-            let path = await uploadFile(qr, title, reduced)
+            let path = await uploadFile(qr, title)
 
             let data = await model.create(path, link_id)
             if(data)

@@ -39,6 +39,3 @@
 - Go to the client dierctories and run ``` pm2 start app.config.json ```
 
 ## More functionalities added
-- Ajout de dossier pour facilité le rangement du stockage des utilisateurs
-- Supprimer des fichier
-- Telecharger des fichier
